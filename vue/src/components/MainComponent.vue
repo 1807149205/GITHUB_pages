@@ -59,7 +59,7 @@ onMounted(() => {
 <div class="MainContainer">
     <div style="width:80%">
         <div v-for="video in data" class="videoCard" style="margin-top: 20px">
-            <span style="color: rgb(43 43 43);">{{ video.fileName }}</span>
+            <span style="color: rgb(43 43 43);font-weight: 600;">{{ video.fileName }}</span>
             <video controls :src="`/video/${video.fileName}`"></video>
         </div>
     </div>
