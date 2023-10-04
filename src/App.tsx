@@ -1,5 +1,6 @@
 import { SetStateAction, useState } from 'react'
 import './App.css'
+import GetFile from './components/GetFile';
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
       <div>
         { msg }
       </div>
+      <GetFile/>
       <div>
         <input type="text" onChange={setInputValueHandle} value={msg}/>
       </div>
