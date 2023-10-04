@@ -1,13 +1,18 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 
+
 onMounted(() => {
-    console.log('Hello')
-})
+    
+    console.log('MainComponent启动！')
+}),
+
 </script>
 
 <template>
-<router-view></router-view>
+
+<h1>MainComponent</h1>
+
 </template>
 
 <style scoped>
