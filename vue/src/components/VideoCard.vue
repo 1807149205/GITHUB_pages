@@ -14,7 +14,7 @@ defineProps({
 
 <template>
     <div class="videoCard">
-        <span style="color: rgb(43 43 43);font-weight: 600;">{{ video.fileName }}</span>
+        <span style="color: rgb(43 43 43);font-weight: 600;height: 100px;">{{ video.fileName }}</span>
         <video controls :src="`${PUBLIC_URL}/video/${video.fileName}`" class="videoStyle"></video>
     </div>   
 </template>
@@ -24,7 +24,7 @@ defineProps({
     display: flex;
     flex-direction: column;
     justify-content: center;
-    max-width: 600px;
+    max-width: 700px;
     max-height: 400px;
 }
 .videoStyle{
