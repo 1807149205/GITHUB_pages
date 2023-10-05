@@ -1,7 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import MainComponentVue from '../components/MainComponent.vue';
+
 
 const routes = [
-  {path: '/', name: "MainComponent", component: () => import(("../components/MainComponent.vue")) },
+  {path: '/', name: "MainComponent", component: MainComponentVue },
 ];
 
 const router = createRouter({
