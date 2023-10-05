@@ -26,11 +26,8 @@ onMounted(() => {
 <template>
 
 <div class="MainContainer">
-    <div style="width:80%">
-
-        <div v-for="video in data" class="videoCard" style="margin-top: 20px">
-            <VideoCard :video="video"></VideoCard>
-        </div>
+    <div v-for="video in data" style="margin: 20px">
+        <VideoCard :video="video"></VideoCard>
     </div>
     
 </div>
@@ -42,10 +39,7 @@ onMounted(() => {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    flex-wrap: wrap;
 }
-.videoCard{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
+
 </style>
