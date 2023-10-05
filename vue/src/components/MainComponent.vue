@@ -8,7 +8,7 @@ import VideoCard from './VideoCard.vue';
 const data = ref<dataType[]>([]);
 
 const fetchData = async () => {
-    const respData = await axios.get('/data/data.json');
+    const respData = await axios.get('../../public/data/data.json');
     const finalData: dataType[] = respData.data as dataType[];
     for (let i = 0 ; i < finalData.length ; i++) {
         const flag = await checkResourceStatus(finalData[i]);
