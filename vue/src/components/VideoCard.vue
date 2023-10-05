@@ -5,12 +5,18 @@ import dataType from './DataType';
 
 const fileName = ref<string>('');
 
+const emit = defineEmits();
+
 const props = defineProps({
     video: {
       type: Object as () => dataType, // 使用 PropType 定义类型
       required: true, // 可根据需求设置是否必须
     },
 })
+
+const videoCardClick = () => {
+    emit('videoCardClick', props.video.fileName);
+}
 
 const getFileName = () => {
     let videoName = props.video.fileName;
@@ -26,7 +32,7 @@ onMounted(() => {
 
 
 <template>
-    <div class="videoCard">
+    <div class="videoCard" @click="videoCardClick">
         <span style="text-align: center;color: rgb(43 43 43);font-weight: 600;height: 50px;">{{ fileName }}</span>
         <div style="display: flex;justify-content: center;">
             <el-image style="width: 500px; height: 300px; cursor: pointer;" :src="`${PUBLIC_URL}/video_img/${fileName}.jpg`" fit="contain" />

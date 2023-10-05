@@ -4,6 +4,7 @@ import dataType from './DataType';
 import VideoCard from './VideoCard.vue';
 import Main from './index'
 import { ElMessage } from 'element-plus'
+import { PUBLIC_URL } from '../constant/public';
 
 /**
  * 所有数据
@@ -22,13 +23,15 @@ const currentPage = ref<number>(1);
  */
 const pageCount = ref<number>(10);
 const refrashPage = ref<boolean>(true);
+const isMenu = ref<boolean>(true);
+const curPlayFileName = ref<string>('');
 
 const initPage = async () => {
     let jsonData = await Main.fetchData();
-    ElMessage({
-        message: `${jsonData.length}条记录`,
-        type: 'success',
-    })
+    // ElMessage({
+    //     message: `${jsonData.length}条记录`,
+    //     type: 'success',
+    // })
     for (let i = 0 ; i < jsonData.length ; i++) {
         data.value.push(jsonData[i]);
     }
@@ -36,10 +39,6 @@ const initPage = async () => {
 }
 
 const pageChange = (curPage: number) => {
-    ElMessage({
-        message: `${curPage}`,
-        type: 'success',
-    })
     refrashPage.value = false;
     currentPage.value = curPage;
     pageData.value = Main.getPage(data.value, pageCount.value, currentPage.value);
@@ -47,6 +46,11 @@ const pageChange = (curPage: number) => {
         refrashPage.value = true;
     },0);
     
+}
+
+const clickVideoCardCallback = (videoName: string) => {
+    curPlayFileName.value = videoName;
+    isMenu.value = !isMenu.value;
 }
 
 onMounted(() => {
@@ -59,19 +63,27 @@ onMounted(() => {
 <template>
 
 <div class="MainContainer">
-    <div class="mainContent" v-for="video in pageData" style="margin: 20px" v-if="refrashPage">
-        <VideoCard :video="video"></VideoCard>
+    <div v-show="isMenu">
+        <div class="mainContent" v-for="video in pageData" style="margin: 20px" v-if="refrashPage">
+            <VideoCard @videoCardClick="clickVideoCardCallback" :video="video"></VideoCard>
+        </div>
+        <div class="pageContainer">
+            <el-pagination
+                :page-size="pageCount"
+                :pager-count="10"
+                background
+                layout="prev, pager, next"
+                :total="data.length"
+                @current-change="pageChange"
+            />
+        </div>  
     </div>
-    <div class="pageContainer">
-        <el-pagination
-            :page-size="pageCount"
-            :pager-count="10"
-            background
-            layout="prev, pager, next"
-            :total="data.length"
-            @current-change="pageChange"
-        />
-    </div>  
+    
+    <div v-show="!isMenu">
+        <el-button style="margin-top: 20px;" @click="isMenu = !isMenu">返回</el-button>
+        <h3>{{ curPlayFileName.substring(0, curPlayFileName.length - 4) }}</h3>
+        <video controls :src="`${PUBLIC_URL}/video/${curPlayFileName}`" class="videoStyle"></video>
+    </div>
 </div>
 
 </template>
