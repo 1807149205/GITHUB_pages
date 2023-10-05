@@ -27,8 +27,10 @@ onMounted(() => {
 
 <template>
     <div class="videoCard">
-        <span style="color: rgb(43 43 43);font-weight: 600;height: 100px;">{{ fileName }}</span>
-        <el-image style="width: 600px; height: 300px; cursor: pointer;" :src="`${PUBLIC_URL}/video_img/${fileName}.jpg`" fit="scale-down" />
+        <span style="text-align: center;color: rgb(43 43 43);font-weight: 600;height: 50px;">{{ fileName }}</span>
+        <div style="display: flex;justify-content: center;">
+            <el-image style="width: 500px; height: 300px; cursor: pointer;" :src="`${PUBLIC_URL}/video_img/${fileName}.jpg`" fit="contain" />
+        </div>
         <!-- <video controls :src="`${PUBLIC_URL}/video/${video.fileName}`" class="videoStyle"></video> -->
     </div> 
 </template>

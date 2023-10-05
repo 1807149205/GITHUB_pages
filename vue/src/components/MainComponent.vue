@@ -66,6 +66,7 @@ onMounted(() => {
         <el-pagination
             :page-size="pageCount"
             :pager-count="10"
+            background
             layout="prev, pager, next"
             :total="data.length"
             @current-change="pageChange"
@@ -79,6 +80,10 @@ onMounted(() => {
 .MainContainer{
     width: 100%;
     height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 .mainContent {
     display: flex;
@@ -89,5 +94,6 @@ onMounted(() => {
 .pageContainer{
     display: flex;
     justify-content: center;
+    margin-bottom: 20px;
 }
 </style>
