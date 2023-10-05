@@ -14,7 +14,7 @@ defineProps({
 <template>
     <div>
         <span style="color: rgb(43 43 43);font-weight: 600;">{{ video.fileName }}</span>
-        <video controls :src="`/video/${video.fileName}`"></video>
+        <video controls :src="`https://1807149205.github.io/GITHUB_pages/video/${video.fileName}`"></video>
     </div>   
 </template>
 
