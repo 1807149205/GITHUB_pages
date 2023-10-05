@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import MainComponent from './components/MainComponent.vue';
 
 onMounted(() => {
     console.log('Hello')
@@ -9,7 +8,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <main-component></main-component>
+    <router-view></router-view>
 </template>
 
 <style scoped>

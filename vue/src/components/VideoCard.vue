@@ -13,12 +13,16 @@ defineProps({
 
 
 <template>
-    <div>
+    <div class="videoCard">
         <span style="color: rgb(43 43 43);font-weight: 600;">{{ video.fileName }}</span>
-        <video controls :src="`${PUBLIC_URL}/video/${video.fileName}`"></video>
+        <video :src="`${PUBLIC_URL}/video/${video.fileName}`"></video>
     </div>   
 </template>
 
 <style scoped>
-
+.videoCard{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 </style>
