@@ -10,16 +10,9 @@ class Main {
      * @returns dataType[]
      */
     public async fetchData() {
-        let data: dataType[] = [];
         const respData = await axios.get(`${PUBLIC_URL}/data/data.json`);
         const finalData: dataType[] = respData.data as dataType[];
-        for (let i = 0 ; i < finalData.length ; i++) {
-            const flag = await this.checkResourceStatus(finalData[i]);
-            if (flag) {
-                data.push(finalData[i]);
-            }
-        }
-        return data;
+        return finalData;
     }
 
     /**

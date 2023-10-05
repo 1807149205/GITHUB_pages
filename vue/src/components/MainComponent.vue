@@ -7,7 +7,13 @@ import Main from './index'
 const data = ref<dataType[]>([]);
 
 const initPage = async () => {
-    data.value = await Main.fetchData();
+    let jsonData = await Main.fetchData();
+    for (let i = 0 ; i < jsonData.length ; i++) {
+        const flag = await Main.checkResourceStatus(jsonData[i]);
+        if (flag) {
+            data.value.push(jsonData[i]);
+        }
+    }
 }
 
 onMounted(() => {
