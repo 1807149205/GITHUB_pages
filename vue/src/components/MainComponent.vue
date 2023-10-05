@@ -8,7 +8,7 @@ import VideoCard from './VideoCard.vue';
 const data = ref<dataType[]>([]);
 
 const fetchData = async () => {
-    const respData = await axios.get('../../public/data/data.json');
+    const respData = await axios.get('/public/data/data.json');
     const finalData: dataType[] = respData.data as dataType[];
     for (let i = 0 ; i < finalData.length ; i++) {
         const flag = await checkResourceStatus(finalData[i]);
@@ -20,7 +20,7 @@ const fetchData = async () => {
 
 const checkResourceStatus = async (video: dataType) => {
     try {
-        const response = await axios.head(`../../public/video/${video.fileName}`);
+        const response = await axios.head(`/public/video/${video.fileName}`);
         // 这里只关心响应状态码，不需要响应内容
         console.log(`视频读取成功！${video.fileName}`)
         return response.status === 200; // 200表示资源存在
