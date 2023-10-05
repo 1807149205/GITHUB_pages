@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import axios from 'axios'
+import dataType from './DataType';
+import VideoCard from './VideoCard.vue';
 
-interface dataType {
-    id: string;
-    fileName: string;
-}
 
 const data = ref<dataType[]>([]);
 
@@ -20,18 +18,9 @@ const fetchData = async () => {
     }
 }
 
-// const checkVideoResource = async (video: dataType) => {
-//     try {
-//         const response = await fetch(`/video/${video.fileName}`);
-//         return response.status === 200; // 200表示资源存在
-//     } catch (error) {
-//         console.error('资源检查失败：', error);
-//         return false; // 出现错误时假定资源不存在
-//     }
-// }
 const checkResourceStatus = async (video: dataType) => {
     try {
-        const response = await axios.head(`/video/${video.fileName}`);
+        const response = await axios.head(`../../public/video/${video.fileName}`);
         // 这里只关心响应状态码，不需要响应内容
         console.log(`视频读取成功！${video.fileName}`)
         return response.status === 200; // 200表示资源存在
@@ -58,9 +47,9 @@ onMounted(() => {
 
 <div class="MainContainer">
     <div style="width:80%">
+
         <div v-for="video in data" class="videoCard" style="margin-top: 20px">
-            <span style="color: rgb(43 43 43);font-weight: 600;">{{ video.fileName }}</span>
-            <video controls :src="`/video/${video.fileName}`"></video>
+            <VideoCard :video="video"></VideoCard>
         </div>
     </div>
     

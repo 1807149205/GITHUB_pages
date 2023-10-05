@@ -4,6 +4,7 @@ import { onMounted } from 'vue';
 onMounted(() => {
     console.log('Hello')
 })
+
 </script>
 
 <template>
