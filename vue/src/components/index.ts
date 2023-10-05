@@ -32,6 +32,23 @@ class Main {
         }
     };
 
+    /**
+     * 分页查询
+     * @param data 全部数据
+     * @param count 每一页的数量
+     * @param curPage 当前页
+     * @returns 分页查询的结果
+     */
+    public getPage(data: dataType[], count: number, curPage: number): dataType[] {
+        let n = data.length;
+        let start = (curPage - 1) * count;
+        let rtnData: dataType[] = [];
+        for (let i = start ; i < start + count && i < n ; i++) {
+            rtnData.push(data[i]);
+        }
+        return rtnData;
+    }
+
 }
 
 export default new Main();

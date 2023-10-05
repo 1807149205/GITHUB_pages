@@ -5,7 +5,23 @@ import VideoCard from './VideoCard.vue';
 import Main from './index'
 import { ElMessage } from 'element-plus'
 
+/**
+ * 所有数据
+ */
 const data = ref<dataType[]>([]);
+/**
+ * 当前页面的数据
+ */
+const pageData = ref<dataType[]>([]);
+/**
+ * 当前页数
+ */
+const currentPage = ref<number>(1);
+/**
+ * 每一页的数量
+ */
+const pageCount = ref<number>(10);
+const refrashPage = ref<boolean>(true);
 
 const initPage = async () => {
     let jsonData = await Main.fetchData();
@@ -14,19 +30,27 @@ const initPage = async () => {
         type: 'success',
     })
     for (let i = 0 ; i < jsonData.length ; i++) {
-        const flag = await Main.checkResourceStatus(jsonData[i]);
-        if (flag) {
-            ElMessage({
-                message: `${jsonData[i].fileName}读取成功！`,
-                type: 'success',
-            })
-            data.value.push(jsonData[i]);
-        }
+        data.value.push(jsonData[i]);
     }
+    pageData.value = Main.getPage(data.value, pageCount.value, currentPage.value);
+}
+
+const pageChange = (curPage: number) => {
+    ElMessage({
+        message: `${curPage}`,
+        type: 'success',
+    })
+    refrashPage.value = false;
+    currentPage.value = curPage;
+    pageData.value = Main.getPage(data.value, pageCount.value, currentPage.value);
+    setTimeout(() => {
+        refrashPage.value = true;
+    },0);
+    
 }
 
 onMounted(() => {
-    initPage();
+    initPage()
     console.log('MainComponent启动！')
 })
 
@@ -35,20 +59,35 @@ onMounted(() => {
 <template>
 
 <div class="MainContainer">
-    <div v-for="video in data" style="margin: 20px">
+    <div class="mainContent" v-for="video in pageData" style="margin: 20px" v-if="refrashPage">
         <VideoCard :video="video"></VideoCard>
     </div>
-    
+    <div class="pageContainer">
+        <el-pagination
+            :page-size="pageCount"
+            :pager-count="10"
+            layout="prev, pager, next"
+            :total="data.length"
+            @current-change="pageChange"
+        />
+    </div>  
 </div>
 
 </template>
 
 <style scoped>
-.MainContainer {
+.MainContainer{
+    width: 100%;
+    height: 100%;
+}
+.mainContent {
     display: flex;
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
 }
-
+.pageContainer{
+    display: flex;
+    justify-content: center;
+}
 </style>
