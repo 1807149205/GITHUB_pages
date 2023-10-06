@@ -88,7 +88,7 @@ onMounted(() => {
         </div>  
     </div>
     
-    <div v-show="!isMenu">
+    <div v-if="!isMenu">
         <el-button style="margin-top: 20px;margin-left: 20px;" @click="isMenu = !isMenu">返回主页</el-button>
         <h3 style="text-align: center;">{{ curPlayFileName.substring(0, curPlayFileName.length - 4) }}</h3>
         <div class="flexCenter" style="margin-bottom: 20px;">
