@@ -4,7 +4,11 @@ html,body {
     background-color: #e3e3e3;
     margin: 0;
 }
-#app {
-    width: 100%;
-    width: 100%;
+.flexCenter {
+    display: flex;
+    justify-content: center;
 }
+/* #app {
+    height: 100%;
+    width: 100%;
+} */

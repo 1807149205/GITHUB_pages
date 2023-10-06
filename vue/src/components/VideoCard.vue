@@ -34,8 +34,8 @@ onMounted(() => {
 <template>
     <div class="videoCard" @click="videoCardClick">
         <span style="text-align: center;color: rgb(43 43 43);font-weight: 600;height: 50px;">{{ fileName }}</span>
-        <div style="display: flex;justify-content: center;">
-            <el-image style="width: 500px; height: 300px; cursor: pointer;" :src="`${PUBLIC_URL}/video_img/${fileName}.jpg`" fit="contain" />
+        <div class="flexCenter cardImg">
+            <el-image class="elImage" style="cursor: pointer;" :src="`${PUBLIC_URL}/video_img/${fileName}.jpg`" fit="contain" />
         </div>
         <!-- <video controls :src="`${PUBLIC_URL}/video/${video.fileName}`" class="videoStyle"></video> -->
     </div> 
@@ -52,5 +52,16 @@ onMounted(() => {
 .videoStyle{
     max-width: 600px;
     max-height: 400px;
+}
+/* 1、超小屏幕下 小于768 容器布局宽度为100% */
+@media screen and (max-width: 767px) {
+    .videoCard{
+        width: 100%;
+    }
+
+    .elImage {
+        max-height: 360px;
+    }
+    
 }
 </style>

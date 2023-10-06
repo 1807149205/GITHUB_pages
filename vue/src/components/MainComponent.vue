@@ -3,7 +3,6 @@ import { onMounted, ref } from 'vue';
 import dataType from './DataType';
 import VideoCard from './VideoCard.vue';
 import Main from './index'
-import { ElMessage } from 'element-plus'
 import { PUBLIC_URL } from '../constant/public';
 
 /**
@@ -28,10 +27,6 @@ const curPlayFileName = ref<string>('');
 
 const initPage = async () => {
     let jsonData = await Main.fetchData();
-    // ElMessage({
-    //     message: `${jsonData.length}条记录`,
-    //     type: 'success',
-    // })
     for (let i = 0 ; i < jsonData.length ; i++) {
         data.value.push(jsonData[i]);
     }
@@ -44,13 +39,27 @@ const pageChange = (curPage: number) => {
     pageData.value = Main.getPage(data.value, pageCount.value, currentPage.value);
     setTimeout(() => {
         refrashPage.value = true;
-    },0);
+        scrollToTop();
+    },50);
     
 }
 
 const clickVideoCardCallback = (videoName: string) => {
     curPlayFileName.value = videoName;
     isMenu.value = !isMenu.value;
+}
+
+const scrollToTop = () => {
+  // 如果浏览器支持 smooth scrolling，则使用
+  if ('scrollBehavior' in document.documentElement.style) {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth' // 平滑滚动效果
+    });
+  } else {
+    // 否则，使用非平滑的方式滚动
+    window.scrollTo(0, 0);
+  }
 }
 
 onMounted(() => {
@@ -70,7 +79,7 @@ onMounted(() => {
         <div class="pageContainer">
             <el-pagination
                 :page-size="pageCount"
-                :pager-count="10"
+                :pager-count="5"
                 background
                 layout="prev, pager, next"
                 :total="data.length"
@@ -80,9 +89,12 @@ onMounted(() => {
     </div>
     
     <div v-show="!isMenu">
-        <el-button style="margin-top: 20px;" @click="isMenu = !isMenu">返回</el-button>
-        <h3>{{ curPlayFileName.substring(0, curPlayFileName.length - 4) }}</h3>
-        <video controls :src="`${PUBLIC_URL}/video/${curPlayFileName}`" class="videoStyle"></video>
+        <el-button style="margin-top: 20px;margin-left: 20px;" @click="isMenu = !isMenu">返回主页</el-button>
+        <h3 style="text-align: center;">{{ curPlayFileName.substring(0, curPlayFileName.length - 4) }}</h3>
+        <div class="flexCenter" style="margin-bottom: 20px;">
+            <video style="width: 80%;height: 300px" controls :src="`${PUBLIC_URL}/video/${curPlayFileName}`" class="videoStyle"></video>
+        </div>
+        
     </div>
 </div>
 
@@ -104,6 +116,7 @@ onMounted(() => {
     flex-wrap: wrap;
 }
 .pageContainer{
+    width: 100%;
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
